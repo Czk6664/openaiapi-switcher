@@ -1,67 +1,84 @@
-# Config Switcher
+# OpenAI API Switcher
 
-A local tool for managing OpenAI-compatible URL/API key settings for:
+A desktop-first config manager for OpenAI-compatible endpoints.
+
+This tool detects and updates local settings for:
 
 - OpenCode
 - Codex
 - Claude Code
 
-It can detect config files under your home directory (default: `C:\Users\23707`) and import new values into each client independently.
+It lets you set each client independently, then writes values back to the correct config file.
 
-## Features
+## Why This Project
 
-- Auto-detects common config file locations for OpenCode, Codex, and Claude Code
-- Reads current OpenAI-compatible `base URL` and `API key`
-- Imports URL + API key to each client separately
-- Supports Claude Code OpenAI-compat mode and model switching
+When you use multiple coding assistants, switching provider URL and key by hand is slow and error-prone.
+This project provides one GUI and one CLI to manage all three clients from one place.
+
+## Highlights
+
+- One unified GUI with separate tabs for OpenCode, Codex, and Claude Code
+- Auto-detect current config paths and active values
+- Import `base URL` + `api key` per client independently
+- Claude Code OpenAI-compat support with model switching
   - `ANTHROPIC_MODEL`
   - `ANTHROPIC_SMALL_FAST_MODEL`
+- Safe writes: preserve unrelated fields and only update required keys
 
-## Project Structure
+## Supported Config Paths
 
-- `main.py` - CLI entry point and GUI launcher
-- `switcher/config_manager.py` - scan/update logic for all clients
-- `switcher/gui.py` - Tkinter desktop UI
+| Client | Primary files |
+| --- | --- |
+| OpenCode | `~/.config/opencode.jsonc`, `~/.config/opencode/opencode.json` |
+| Codex | `~/.codex/config.toml`, `~/.codex/auth.json` |
+| Claude Code | `~/.claude/settings.json`, `~/.claude/settings.local.json` |
 
-## Run
+## Quick Start
 
-From this folder:
+### GUI
 
 ```powershell
 python main.py
 ```
 
-This opens a GUI with 3 tabs (`OpenCode`, `Codex`, `Claude Code`).
-
-## CLI Usage
-
-Scan all configs:
+### CLI Scan
 
 ```powershell
 python main.py scan
 ```
 
-Import URL + API key for one client:
+### CLI Import
 
 ```powershell
-python main.py set --client opencode --url "https://example.com/v1" --api-key "sk-xxx"
-python main.py set --client codex --url "https://example.com/v1" --api-key "sk-xxx"
-python main.py set --client claude --url "https://example.com/v1" --api-key "sk-xxx" --model "gpt-5.3-codex" --small-model "gpt-5.3-mini"
+python main.py set --client opencode --url "https://example.com/v1" --api-key "<API_KEY>"
+python main.py set --client codex --url "https://example.com/v1" --api-key "<API_KEY>"
+python main.py set --client claude --url "https://example.com/v1" --api-key "<API_KEY>" --model "gpt-5.3-codex" --small-model "gpt-5.3-mini"
 ```
 
-Optional custom home path:
+### Optional Home Override
 
 ```powershell
 python main.py --home "C:\Users\23707" scan
 ```
 
-## Notes
+## Project Layout
 
-- The tool preserves unrelated fields in JSON configs and only updates required keys.
-- Codex API key is written to `~/.codex/auth.json` as `OPENAI_API_KEY`.
-- Claude OpenAI-compat mode is enabled by setting `CLAUDE_CODE_USE_OPENAI_COMPAT = "1"`.
+- `main.py` - app entry (GUI + CLI)
+- `switcher/config_manager.py` - detect/read/update logic
+- `switcher/gui.py` - Tkinter UI
+- `launch_gui.cmd` - one-click GUI launcher
 
-## Security
+## Security Notes
 
-- This repository does not include your local client config files under `C:\Users\23707`.
-- Do not commit files such as `.codex/auth.json`, `.claude/settings.json`, or `.config/opencode*.json*`.
+- No real API keys are stored in this repository.
+- This project does not include your local client config files.
+- Keep files like `.codex/auth.json`, `.claude/settings.json`, and `.config/opencode*.json*` out of version control.
+- `.gitignore` is configured to avoid common local artifacts and accidental leakage.
+
+## Packaging
+
+A local zip package is generated at:
+
+- `dist/config-switcher.zip`
+
+This archive contains only project source files, not your personal config files.
