@@ -1,6 +1,22 @@
 # OpenAI API Switcher
 
+[![Python](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Windows-informational.svg)](https://www.microsoft.com/windows)
+[![UI](https://img.shields.io/badge/UI-Tkinter-success.svg)](https://docs.python.org/3/library/tkinter.html)
+
+> AI-Generated Project Notice: This project was generated and iteratively refined with AI assistance.
+
 A desktop-first config manager for OpenAI-compatible endpoints.
+
+## Contents
+
+- [Why This Project](#why-this-project)
+- [Highlights](#highlights)
+- [Supported Config Paths](#supported-config-paths)
+- [Quick Start](#quick-start)
+- [Project Layout](#project-layout)
+- [Security Notes](#security-notes)
+- [Packaging](#packaging)
 
 This tool detects and updates local settings for:
 
@@ -35,6 +51,12 @@ This project provides one GUI and one CLI to manage all three clients from one p
 
 ## Quick Start
 
+### One-Click Frontend Start
+
+```powershell
+start_frontend.cmd
+```
+
 ### GUI
 
 ```powershell
@@ -67,6 +89,7 @@ python main.py --home "C:\Users\23707" scan
 - `switcher/config_manager.py` - detect/read/update logic
 - `switcher/gui.py` - Tkinter UI
 - `launch_gui.cmd` - one-click GUI launcher
+- `start_frontend.cmd` - one-click frontend launcher (prefers EXE)
 
 ## Security Notes
 
@@ -80,5 +103,7 @@ python main.py --home "C:\Users\23707" scan
 A local zip package is generated at:
 
 - `dist/config-switcher.zip`
+- `dist/openaiapi-switcher.exe`
+- `dist/openaiapi-switcher-portable.zip`
 
 This archive contains only project source files, not your personal config files.
