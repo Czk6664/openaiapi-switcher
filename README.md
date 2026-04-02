@@ -4,72 +4,56 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows-informational.svg)](https://www.microsoft.com/windows)
 [![UI](https://img.shields.io/badge/UI-Tkinter-success.svg)](https://docs.python.org/3/library/tkinter.html)
 
-> AI-Generated Project Notice: This project was generated and iteratively refined with AI assistance.
+> AI 生成项目声明：本项目由 AI 协助生成并持续迭代完善。
+>
+> 默认文档语言：中文 | English Docs: [README_EN.md](README_EN.md)
 
-A desktop-first config manager for OpenAI-compatible endpoints.
-
-## Contents
-
-- [Why This Project](#why-this-project)
-- [Highlights](#highlights)
-- [Supported Config Paths](#supported-config-paths)
-- [Quick Start](#quick-start)
-- [Project Layout](#project-layout)
-- [Security Notes](#security-notes)
-- [Packaging](#packaging)
-
-This tool detects and updates local settings for:
+一个面向桌面的 OpenAI 兼容配置切换工具，用来统一管理以下客户端的 URL 与 API Key：
 
 - OpenCode
 - Codex
 - Claude Code
 
-It lets you set each client independently, then writes values back to the correct config file.
+## 功能亮点
 
-## Why This Project
-
-When you use multiple coding assistants, switching provider URL and key by hand is slow and error-prone.
-This project provides one GUI and one CLI to manage all three clients from one place.
-
-## Highlights
-
-- One unified GUI with separate tabs for OpenCode, Codex, and Claude Code
-- Auto-detect current config paths and active values
-- Import `base URL` + `api key` per client independently
-- Claude Code OpenAI-compat support with model switching
+- 默认中文界面，支持切换到英文界面
+- 单一 GUI，分标签管理 OpenCode / Codex / Claude Code
+- 自动识别本机配置文件路径并读取当前值
+- 支持分客户端导入 `base URL` + `api key`
+- Claude Code 支持 OpenAI 兼容模式与模型切换
   - `ANTHROPIC_MODEL`
   - `ANTHROPIC_SMALL_FAST_MODEL`
-- Safe writes: preserve unrelated fields and only update required keys
+- 安全更新：仅改必要字段，保留其余配置
 
-## Supported Config Paths
+## 支持的配置路径
 
-| Client | Primary files |
+| 客户端 | 主要配置文件 |
 | --- | --- |
 | OpenCode | `~/.config/opencode.jsonc`, `~/.config/opencode/opencode.json` |
 | Codex | `~/.codex/config.toml`, `~/.codex/auth.json` |
 | Claude Code | `~/.claude/settings.json`, `~/.claude/settings.local.json` |
 
-## Quick Start
+## 快速开始
 
-### One-Click Frontend Start
+### 一键启动前端（推荐）
 
 ```powershell
 start_frontend.cmd
 ```
 
-### GUI
+### 启动 GUI
 
 ```powershell
 python main.py
 ```
 
-### CLI Scan
+### 扫描当前配置
 
 ```powershell
 python main.py scan
 ```
 
-### CLI Import
+### CLI 导入配置
 
 ```powershell
 python main.py set --client opencode --url "https://example.com/v1" --api-key "<API_KEY>"
@@ -77,33 +61,31 @@ python main.py set --client codex --url "https://example.com/v1" --api-key "<API
 python main.py set --client claude --url "https://example.com/v1" --api-key "<API_KEY>" --model "gpt-5.3-codex" --small-model "gpt-5.3-mini"
 ```
 
-### Optional Home Override
+### 自定义 home 目录
 
 ```powershell
 python main.py --home "C:\Users\23707" scan
 ```
 
-## Project Layout
+## 目录结构
 
-- `main.py` - app entry (GUI + CLI)
-- `switcher/config_manager.py` - detect/read/update logic
-- `switcher/gui.py` - Tkinter UI
-- `launch_gui.cmd` - one-click GUI launcher
-- `start_frontend.cmd` - one-click frontend launcher (prefers EXE)
+- `main.py`：GUI/CLI 统一入口
+- `switcher/config_manager.py`：扫描、读取、写入逻辑
+- `switcher/gui.py`：Tkinter 图形界面（默认中文，可切换英文）
+- `launch_gui.cmd`：一键启动脚本
+- `start_frontend.cmd`：一键前端启动脚本（优先使用 EXE）
 
-## Security Notes
+## 安全说明
 
-- No real API keys are stored in this repository.
-- This project does not include your local client config files.
-- Keep files like `.codex/auth.json`, `.claude/settings.json`, and `.config/opencode*.json*` out of version control.
-- `.gitignore` is configured to avoid common local artifacts and accidental leakage.
+- 仓库中不包含任何真实 API Key。
+- 不会自动把你本机配置文件提交到版本库。
+- 请确保 `.codex/auth.json`、`.claude/settings.json`、`.config/opencode*.json*` 不进入 Git。
+- 项目已配置 `.gitignore` 防止常见本地文件泄漏。
 
-## Packaging
-
-A local zip package is generated at:
+## 打包产物
 
 - `dist/config-switcher.zip`
 - `dist/openaiapi-switcher.exe`
 - `dist/openaiapi-switcher-portable.zip`
 
-This archive contains only project source files, not your personal config files.
+以上产物仅包含项目程序，不包含你本地的个人配置文件。

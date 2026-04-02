@@ -6,6 +6,8 @@
 
 > AI 生成项目声明：本项目由 AI 协助生成并持续迭代完善。
 
+> 默认文档语言：中文（即 `README.md`） | English Docs: [README_EN.md](README_EN.md)
+
 一个面向桌面的 OpenAI 兼容配置切换工具。
 
 ## 目录
@@ -34,6 +36,7 @@
 ## 核心功能
 
 - 单一 GUI，分标签管理 OpenCode / Codex / Claude Code
+- 默认中文界面，支持切换到英文界面
 - 自动识别本机配置文件路径并读取当前值
 - 分客户端导入 `base URL` + `api key`
 - Claude Code 支持 OpenAI 兼容模式与模型切换
@@ -87,7 +90,7 @@ python main.py --home "C:\Users\23707" scan
 
 - `main.py`：GUI/CLI 统一入口
 - `switcher/config_manager.py`：扫描、读取、写入逻辑
-- `switcher/gui.py`：Tkinter 图形界面
+- `switcher/gui.py`：Tkinter 图形界面（默认中文，可切换英文）
 - `launch_gui.cmd`：一键启动脚本
 - `start_frontend.cmd`：一键前端启动脚本（优先使用 EXE）
 
